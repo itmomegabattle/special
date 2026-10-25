@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07112e">
+  <title>MEGA / Аудиогид</title>
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <div id="decor-behind" class="decor" aria-hidden="true"></div>
+  <div id="cover-glow" class="cover-glow" aria-hidden="true"></div>
+  <div id="decor-front" class="decor decor-front" aria-hidden="true"></div>
+
+  <main class="app">
+    <header class="header">
+      <span class="logo">ITMO MEGABATTLE</span>
+      <span class="header-title">Аудиогид</span>
+    </header>
+
+    <article class="card">
+      <div class="art">
+        <img id="cover" class="cover" alt="" width="800" height="800" decoding="async">
+        <img id="cover-previous" class="cover cover-previous" alt="" aria-hidden="true">
+
+        <button id="scan" class="scan-chip" aria-label="Сканировать QR-код" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3M7 12h10"/></svg>
+          QR
+        </button>
+
+        <section id="viewfinder" class="viewfinder" aria-label="Сканер QR-кода" hidden>
+          <video id="camera" autoplay playsinline muted></video>
+          <div class="frame" aria-hidden="true"></div>
+          <button id="close-scanner" class="glass-button viewfinder-close" aria-label="Закрыть сканер">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+          <div class="viewfinder-hint">
+            <p id="camera-status" class="glass-pill" role="status"></p>
+            <button id="retry" class="glass-pill retry" hidden>Повторить</button>
+          </div>
+        </section>
+      </div>
+
+      <section class="details">
+        <div class="title-row">
+          <div id="titles" class="titles">
+            <h1 id="title"></h1>
+            <p id="artist" class="artist"></p>
+          </div>
+          <span class="equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <button id="transcript-open" class="glass-button transcript-button" aria-label="Текст рассказа" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h9"/></svg>
+          </button>
+        </div>
+
+        <div>
+          <div id="timeline" class="timeline">
+            <canvas id="waves" class="waves" aria-hidden="true"></canvas>
+            <div class="rail"></div>
+            <div class="played"></div>
+            <span class="thumb" aria-hidden="true"></span>
+            <input id="seek" class="seek" type="range" min="0" max="100" step="0.1" value="0" aria-label="Позиция в записи" disabled>
+          </div>
+          <div class="times"><span id="elapsed">0:00</span><span id="duration">—</span></div>
+        </div>
+
+        <div class="controls">
+          <button id="back" class="icon-button" aria-label="Сканировать QR-код другого экспоната" disabled>
+            <svg class="rounded-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M23.5,9.5 L12.5,16 23.5,22.5Z M8.5,9 V23"/></svg>
+          </button>
+          <button id="play" class="play" aria-label="Слушать" data-state="paused" disabled>
+            <svg id="play-icon" class="rounded-icon play-icon" viewBox="0 0 32 32" aria-hidden="true">
+              <path><animate attributeName="d" dur="0.6s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.19 1 0.22 1"/></path>
+            </svg>
+          </button>
+          <button id="next" class="icon-button" aria-label="Сканировать QR-код следующего экспоната" disabled>
+            <svg class="rounded-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M8.5,9.5 L19.5,16 8.5,22.5Z M23.5,9 V23"/></svg>
+          </button>
+        </div>
+
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </section>
+    </article>
+  </main>
+
+  <dialog id="transcript" class="transcript" aria-labelledby="transcript-title">
+    <div class="transcript-column">
+      <form method="dialog" class="transcript-head">
+        <h2 id="transcript-title" class="transcript-title"></h2>
+        <button class="glass-button transcript-close" aria-label="Закрыть текст">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </form>
+      <div id="transcript-body" class="transcript-body"></div>
+    </div>
+  </dialog>
+</body>
+</html>
